@@ -1,18 +1,13 @@
-import { globalObject } from "./globalObject.js";
+let atob, btoa;
 
-var atob, btoa;
+// @if MODULE_FORMAT!='cjs'
+atob = globalThis.atob;
+btoa = globalThis.btoa;
+// @endif
 
-(function() {
-  // @if MODULE_FORMAT!='cjs'
-  atob = globalObject.atob.bind(globalObject);
-  btoa = globalObject.btoa.bind(globalObject);
-  return;
-  // @endif
-
-  // @if MODULE_FORMAT='cjs'
-  atob = require("atob");
-  btoa = require("btoa");
-  // @endif
-})();
+// @if MODULE_FORMAT='cjs'
+atob = str => Buffer.from(str, 'base64').toString('latin1')
+btoa = str => Buffer.from(str, 'latin1').toString('base64');
+// @endif
 
 export { atob, btoa };
