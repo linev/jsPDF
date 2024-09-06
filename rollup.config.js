@@ -38,7 +38,7 @@ const umdExternals = matchSubmodules([
   ...Object.keys(pkg.optionalDependencies || {})
 ]);
 const externals = matchSubmodules([
-  ...Object.keys(pkg.dependencies || {}),
+//  ...Object.keys(pkg.dependencies || {}),
   ...Object.keys(pkg.peerDependencies || {}),
   ...Object.keys(pkg.optionalDependencies || {})
 ]);
