@@ -1,8 +1,5 @@
 /* eslint-disable no-console */
 
-// @if MODULE_FORMAT!='cjs'
-import { saveAs } from "./libs/FileSaver.js";
-// @endif
 import { globalObject } from "./libs/globalObject.js";
 import { RGBColor } from "./libs/rgbcolor.js";
 import { btoa } from "./libs/AtobBtoa.js";
@@ -5869,50 +5866,7 @@ function jsPDF(options) {
     options = options || {};
     options.returnPromise = options.returnPromise || false;
 
-    // @if MODULE_FORMAT!='cjs'
-    if (options.returnPromise === false) {
-      saveAs(getBlob(buildDocument()), filename);
-      if (typeof saveAs.unload === "function") {
-        if (globalObject.setTimeout) {
-          setTimeout(saveAs.unload, 911);
-        }
-      }
-      return this;
-    } else {
-      return new Promise(function(resolve, reject) {
-        try {
-          var result = saveAs(getBlob(buildDocument()), filename);
-          if (typeof saveAs.unload === "function") {
-            if (globalObject.setTimeout) {
-              setTimeout(saveAs.unload, 911);
-            }
-          }
-          resolve(result);
-        } catch (e) {
-          reject(e.message);
-        }
-      });
-    }
-    // @endif
-
-    // @if MODULE_FORMAT='cjs'
-    // eslint-disable-next-line no-unreachable
-    var fs = require("fs");
-    var buffer = Buffer.from(getArrayBuffer(buildDocument()));
-    if (options.returnPromise === false) {
-      fs.writeFileSync(filename, buffer);
-    } else {
-      return new Promise(function(resolve, reject) {
-        fs.writeFile(filename, buffer, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
-    }
-    // @endif
+    return Promise.reject(Error('save function removed'));
   };
 
   // applying plugins (more methods) ON TOP of built-in API.
