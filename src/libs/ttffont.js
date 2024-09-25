@@ -588,7 +588,8 @@ var CmapEntry = (function() {
     this.language = data.readUInt16();
     this.isUnicode =
       (this.platformID === 3 && this.encodingID === 1 && this.format === 4) ||
-      (this.platformID === 0 && this.format === 4);
+      (this.platformID === 0 && this.format === 4) ||
+      (this.platformID === 1 && this.encodingID === 0 &&  this.format === 0);
     this.codeMap = {};
     switch (this.format) {
       case 0:
